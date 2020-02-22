@@ -1,16 +1,17 @@
 module scenes
 {
-    export class Play extends objects.Scene
+    export class PlayPlus extends objects.Scene
     {
         // PRIVATE INSTANCE MEMBERS
         private _rollButton:objects.Button;
         private _finishButton:objects.Button;
-        private _rollPlusButton:objects.Button;
-        private _dice1:objects.GameObject;
-        private _dice2:objects.GameObject;
+        private _backButton:objects.Button;
+        private _diceArray:objects.GameObject[];
         private _dices:object[];
         private _dice1Txt:objects.Label;
         private _dice2Txt:objects.Label;
+        private _dice3Txt:objects.Label;
+        private _dice4Txt:objects.Label;
  
 
         // PUBLIC PROPERTIES
@@ -44,25 +45,37 @@ module scenes
         protected _rollClick():void{
 
             // assign random numbers
+            let that = this;
             let rand01 = this._generateRandomNumber();
             let rand02 = this._generateRandomNumber();
+            let rand03 = this._generateRandomNumber();
+            let rand04 = this._generateRandomNumber();
 
             // create new dice objects with new images
-            this._dice1 = new objects.Dice(this._dices[rand01], 150, 170);
-            this._dice2 = new objects.Dice(this._dices[rand02], 480, 170);
+            this._diceArray = new Array();
+            this._diceArray.push(new objects.Dice(this._dices[rand01], 150, 170));
+            this._diceArray.push(new objects.Dice(this._dices[rand02], 250, 170));
+            this._diceArray.push(new objects.Dice(this._dices[rand03], 350, 170));
+            this._diceArray.push(new objects.Dice(this._dices[rand04], 450, 170));
+
             // change the value for the labels based on new random number
             this._dice1Txt.text = (rand01 + 1).toFixed().toString();
             this._dice2Txt.text = (rand02 + 1).toFixed().toString();
+            this._dice3Txt.text = (rand03 + 1).toFixed().toString();
+            this._dice4Txt.text = (rand04 + 1).toFixed().toString();
 
             // refresh the objects
             this.removeAllChildren();
             this.addChild(this._rollButton);
-            this.addChild(this._rollPlusButton);
+            this.addChild(this._backButton);
             this.addChild(this._finishButton);
             this.addChild(this._dice1Txt);
             this.addChild(this._dice2Txt);
-            this.addChild(this._dice1);
-            this.addChild(this._dice2);
+            this.addChild(this._dice3Txt);
+            this.addChild(this._dice4Txt);
+            this._diceArray.forEach((dice) => {
+                that.addChild(dice);
+            })
         }
 
         // PUBLIC METHODS
@@ -78,7 +91,7 @@ module scenes
             // Buttons
             this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 430, true);
             this._finishButton = new objects.Button(config.Game.ASSETS.getResult("finishButton"), 120, 430, true);
-            this._rollPlusButton = new objects.Button(config.Game.ASSETS.getResult("advanceButton"), 520, 430, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 520, 430, true);
 
             // Array of dice faces to easily assign by setting index
             this._dices = new Array();
@@ -91,12 +104,17 @@ module scenes
             
 
             // Dices
-            this._dice1 = new objects.Dice(this._dices[0], 150, 170);
-            this._dice2 = new objects.Dice(this._dices[0], 480, 170);
+            this._diceArray = new Array();
+            this._diceArray.push(new objects.Dice(this._dices[0], 150, 170));
+            this._diceArray.push(new objects.Dice(this._dices[0], 250, 170));
+            this._diceArray.push(new objects.Dice(this._dices[0], 350, 170));
+            this._diceArray.push(new objects.Dice(this._dices[0], 450, 170));
 
             // Labels
             this._dice1Txt = new objects.Label("1", "40px", "Arial", "black", 150, 310, true);
-            this._dice2Txt = new objects.Label("1", "40px", "Arial", "black", 480, 310, true);
+            this._dice2Txt = new objects.Label("1", "40px", "Arial", "black", 250, 310, true);
+            this._dice3Txt = new objects.Label("1", "40px", "Arial", "black", 350, 310, true);
+            this._dice4Txt = new objects.Label("1", "40px", "Arial", "black", 450, 310, true);
 
 
              this.Main();
@@ -116,12 +134,15 @@ module scenes
             let that = this;
 
             // Adding Children
-            this.addChild(this._dice1);
-            this.addChild(this._dice2);
+            this._diceArray.forEach((dice) => {
+                that.addChild(dice);
+            })
             this.addChild(this._dice1Txt);
             this.addChild(this._dice2Txt);
+            this.addChild(this._dice3Txt);
+            this.addChild(this._dice4Txt);
             this.addChild(this._rollButton);
-            this.addChild(this._rollPlusButton);
+            this.addChild(this._backButton);
             this.addChild(this._finishButton);
 
             // Roll Button Click Event
@@ -131,8 +152,8 @@ module scenes
             this._finishButton.on("click", () => {
                 config.Game.SCENE = scenes.State.END;
             });
-            this._rollPlusButton.on("click", () => {
-                config.Game.SCENE = scenes.State.PLAYPLUS;
+            this._backButton.on("click", () => {
+                config.Game.SCENE = scenes.State.PLAY;
             });
         }
     }

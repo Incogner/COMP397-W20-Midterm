@@ -14,6 +14,8 @@ var Game = (function () {
         { id: "rollButton", src: "./Assets/images/rollButton.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
+        { id: "finishButton", src: "./Assets/images/finishButton.png" },
+        { id: "advanceButton", src: "./Assets/images/advanceButton.png" },
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "dice01", src: "./Assets/images/1.png" },
         { id: "dice02", src: "./Assets/images/2.png" },
@@ -75,6 +77,10 @@ var Game = (function () {
             case scenes.State.PLAY:
                 console.log("switch to Play Scene");
                 currentScene = new scenes.Play();
+                break;
+            case scenes.State.PLAYPLUS:
+                console.log("switch to Play Plus Scene");
+                currentScene = new scenes.PlayPlus();
                 break;
             case scenes.State.END:
                 console.log("switch to End Scene");
