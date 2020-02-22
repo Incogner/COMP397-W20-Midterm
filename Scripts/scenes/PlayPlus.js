@@ -106,9 +106,9 @@ var scenes;
          */
         PlayPlus.prototype.Start = function () {
             // Buttons
-            this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 430, true);
-            this._finishButton = new objects.Button(config.Game.ASSETS.getResult("finishButton"), 120, 430, true);
-            this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 520, 430, true);
+            this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 400, true);
+            this._finishButton = new objects.Button(config.Game.ASSETS.getResult("finishButton"), 120, 400, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 520, 400, true);
             // Array of dice faces to easily assign by setting index
             this._dices = new Array();
             this._dices.push(config.Game.ASSETS.getResult('dice01'));

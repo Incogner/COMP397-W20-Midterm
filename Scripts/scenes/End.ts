@@ -26,7 +26,7 @@ module scenes
              //instantiate a new Text object
             this._endLabel = new objects.Label("Thank you for Playing", "60px", "Arial", "black", 320, 180, true);
             // buttons
-             this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 430, true);
+             this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
             
              this.Main();
         }        
