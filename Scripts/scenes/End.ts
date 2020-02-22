@@ -5,7 +5,6 @@ module scenes
         // PRIVATE INSTANCE MEMBERS
         private _endLabel: objects.Label;
         private _backButton: objects.Button;
-        private _ocean: objects.Ocean;
 
         // PUBLIC PROPERTIES
 
@@ -25,22 +24,19 @@ module scenes
         public Start(): void 
         {
              //instantiate a new Text object
-            this._endLabel = new objects.Label("End Scene", "80px", "Consolas", "#FFFF00", 320, 180, true);
+            this._endLabel = new objects.Label("Thank you for Playing", "60px", "Arial", "black", 320, 180, true);
             // buttons
              this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 430, true);
             
-             this._ocean = new objects.Ocean();
              this.Main();
         }        
         
         public Update(): void 
         {
-            this._ocean.Update();
         }
         
         public Main(): void 
         {
-            this.addChild(this._ocean);
 
             this.addChild(this._endLabel);
 
