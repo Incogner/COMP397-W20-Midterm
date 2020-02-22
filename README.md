@@ -1,3 +1,2 @@
-# COMP397-W2020-Test-Template-v2
-
-## Test template for COMP397 to be  used with Midterm test
+# COMP397-W2020-MidTerm-Test
+## The Dice Roller Game created as mid term test by Mahdi Moradi (TypeScript)
