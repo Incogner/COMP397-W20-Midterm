@@ -52,6 +52,7 @@ var scenes;
             this._dice2Txt.text = (rand02 + 1).toFixed().toString();
             // refresh the objects
             this.removeAllChildren();
+            this.addChild(this._background);
             this.addChild(this._rollButton);
             this.addChild(this._rollPlusButton);
             this.addChild(this._finishButton);
@@ -68,6 +69,8 @@ var scenes;
          * @memberof Play
          */
         Play.prototype.Start = function () {
+            // background
+            this._background = new createjs.Bitmap(config.Game.ASSETS.getResult('tableBack'));
             // Buttons
             this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 400, true);
             this._finishButton = new objects.Button(config.Game.ASSETS.getResult("finishButton"), 120, 400, true);
@@ -98,6 +101,7 @@ var scenes;
         Play.prototype.Main = function () {
             var that = this;
             // Adding Children
+            this.addChild(this._background);
             this.addChild(this._dice1);
             this.addChild(this._dice2);
             this.addChild(this._dice1Txt);

@@ -5,6 +5,7 @@ module scenes
         // PRIVATE INSTANCE MEMBERS
         private _welcomeLabel: objects.Label;
         private _startButton: objects.Button;
+        private _background:createjs.Bitmap;
 
 
         // PUBLIC PROPERTIES
@@ -22,6 +23,9 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
+            // background
+            this._background = new createjs.Bitmap(config.Game.ASSETS.getResult('background'));
+
              //instantiate a new Text object
             this._welcomeLabel = new objects.Label("COMP397 - Midterm Test", "40px", "Consolas", "#000000", 320, 180, true);
             // buttons
@@ -39,7 +43,7 @@ module scenes
         public Main(): void 
         {
 
-       
+            this.addChild(this._background);
             this.addChild(this._welcomeLabel);
 
         

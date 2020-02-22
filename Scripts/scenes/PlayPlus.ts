@@ -13,6 +13,7 @@ module scenes
         private _dice3Txt:objects.Label;
         private _dice4Txt:objects.Label;
         private _result:objects.Label;
+        private _background:createjs.Bitmap;
  
 
         // PUBLIC PROPERTIES
@@ -95,6 +96,7 @@ module scenes
 
             // refresh the objects
             this.removeAllChildren();
+            this.addChild(this._background);
             this.addChild(this._rollButton);
             this.addChild(this._backButton);
             this.addChild(this._finishButton);
@@ -118,6 +120,9 @@ module scenes
          */
         public Start(): void 
         {
+            // background
+            this._background = new createjs.Bitmap(config.Game.ASSETS.getResult('tableBack'));
+
             // Buttons
             this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 400, true);
             this._finishButton = new objects.Button(config.Game.ASSETS.getResult("finishButton"), 120, 400, true);
@@ -165,6 +170,7 @@ module scenes
             let that = this;
 
             // Adding Children
+            this.addChild(this._background);
             this._diceArray.forEach((dice) => {
                 that.addChild(dice);
             })

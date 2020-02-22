@@ -27,6 +27,8 @@ var scenes;
         // PUBLIC METHODS
         // Initializing and Instantiating
         End.prototype.Start = function () {
+            // background
+            this._background = new createjs.Bitmap(config.Game.ASSETS.getResult('background'));
             //instantiate a new Text object
             this._endLabel = new objects.Label("Thank you for Playing", "60px", "Arial", "black", 320, 180, true);
             // buttons
@@ -36,6 +38,7 @@ var scenes;
         End.prototype.Update = function () {
         };
         End.prototype.Main = function () {
+            this.addChild(this._background);
             this.addChild(this._endLabel);
             this.addChild(this._backButton);
             this._backButton.on("click", function () {

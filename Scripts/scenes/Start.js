@@ -26,6 +26,8 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Start.prototype.Start = function () {
+            // background
+            this._background = new createjs.Bitmap(config.Game.ASSETS.getResult('background'));
             //instantiate a new Text object
             this._welcomeLabel = new objects.Label("COMP397 - Midterm Test", "40px", "Consolas", "#000000", 320, 180, true);
             // buttons
@@ -35,6 +37,7 @@ var scenes;
         Start.prototype.Update = function () {
         };
         Start.prototype.Main = function () {
+            this.addChild(this._background);
             this.addChild(this._welcomeLabel);
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
