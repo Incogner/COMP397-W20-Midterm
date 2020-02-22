@@ -12,6 +12,7 @@ module scenes
         private _dice2Txt:objects.Label;
         private _dice3Txt:objects.Label;
         private _dice4Txt:objects.Label;
+        private _result:objects.Label;
  
 
         // PUBLIC PROPERTIES
@@ -37,6 +38,28 @@ module scenes
         }
 
         /**
+         * This method will take top 3 result and return the result
+         *
+         * @protected
+         * @param {number[]} numberArray
+         * @returns {number}
+         * @memberof PlayPlus
+         */
+        protected _getTopValues(numberArray:number[]):number{
+
+            let newArray = numberArray.sort();
+            //remove the least amount
+            newArray.splice(0, 1);
+            let result = 0;
+
+            for (let i = 0 ; i < newArray.length ; i++) {
+                result += newArray[i];
+              }
+
+            return result;
+        }
+
+        /**
          * This method will assign new values to dices and add them to the scene
          *
          * @protected
@@ -50,6 +73,11 @@ module scenes
             let rand02 = this._generateRandomNumber();
             let rand03 = this._generateRandomNumber();
             let rand04 = this._generateRandomNumber();
+            let rndArray = new Array();
+            rndArray.push(rand01+1);
+            rndArray.push(rand02+1);
+            rndArray.push(rand03+1);
+            rndArray.push(rand04+1);
 
             // create new dice objects with new images
             this._diceArray = new Array();
@@ -63,6 +91,7 @@ module scenes
             this._dice2Txt.text = (rand02 + 1).toFixed().toString();
             this._dice3Txt.text = (rand03 + 1).toFixed().toString();
             this._dice4Txt.text = (rand04 + 1).toFixed().toString();
+            this._result.text = "Result = " + (this._getTopValues(rndArray)).toString();;
 
             // refresh the objects
             this.removeAllChildren();
@@ -73,6 +102,7 @@ module scenes
             this.addChild(this._dice2Txt);
             this.addChild(this._dice3Txt);
             this.addChild(this._dice4Txt);
+            this.addChild(this._result);
             this._diceArray.forEach((dice) => {
                 that.addChild(dice);
             })
@@ -111,10 +141,11 @@ module scenes
             this._diceArray.push(new objects.Dice(this._dices[0], 450, 170));
 
             // Labels
-            this._dice1Txt = new objects.Label("1", "40px", "Arial", "black", 150, 310, true);
-            this._dice2Txt = new objects.Label("1", "40px", "Arial", "black", 250, 310, true);
-            this._dice3Txt = new objects.Label("1", "40px", "Arial", "black", 350, 310, true);
-            this._dice4Txt = new objects.Label("1", "40px", "Arial", "black", 450, 310, true);
+            this._dice1Txt = new objects.Label("1", "30px", "Arial", "black", 150, 250, true);
+            this._dice2Txt = new objects.Label("1", "30px", "Arial", "black", 250, 250, true);
+            this._dice3Txt = new objects.Label("1", "30px", "Arial", "black", 350, 250, true);
+            this._dice4Txt = new objects.Label("1", "30px", "Arial", "black", 450, 250, true);
+            this._result = new objects.Label("Result = 3", "30px", "Arial", "black", 320, 320, true);
 
 
              this.Main();
@@ -141,6 +172,7 @@ module scenes
             this.addChild(this._dice2Txt);
             this.addChild(this._dice3Txt);
             this.addChild(this._dice4Txt);
+            this.addChild(this._result);
             this.addChild(this._rollButton);
             this.addChild(this._backButton);
             this.addChild(this._finishButton);

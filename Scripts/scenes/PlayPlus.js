@@ -35,6 +35,24 @@ var scenes;
             return Math.floor(Math.random() * 6);
         };
         /**
+         * This method will take top 3 result and return the result
+         *
+         * @protected
+         * @param {number[]} numberArray
+         * @returns {number}
+         * @memberof PlayPlus
+         */
+        PlayPlus.prototype._getTopValues = function (numberArray) {
+            var newArray = numberArray.sort();
+            //remove the least amount
+            newArray.splice(0, 1);
+            var result = 0;
+            for (var i = 0; i < newArray.length; i++) {
+                result += newArray[i];
+            }
+            return result;
+        };
+        /**
          * This method will assign new values to dices and add them to the scene
          *
          * @protected
@@ -47,6 +65,11 @@ var scenes;
             var rand02 = this._generateRandomNumber();
             var rand03 = this._generateRandomNumber();
             var rand04 = this._generateRandomNumber();
+            var rndArray = new Array();
+            rndArray.push(rand01 + 1);
+            rndArray.push(rand02 + 1);
+            rndArray.push(rand03 + 1);
+            rndArray.push(rand04 + 1);
             // create new dice objects with new images
             this._diceArray = new Array();
             this._diceArray.push(new objects.Dice(this._dices[rand01], 150, 170));
@@ -58,6 +81,8 @@ var scenes;
             this._dice2Txt.text = (rand02 + 1).toFixed().toString();
             this._dice3Txt.text = (rand03 + 1).toFixed().toString();
             this._dice4Txt.text = (rand04 + 1).toFixed().toString();
+            this._result.text = "Result = " + (this._getTopValues(rndArray)).toString();
+            ;
             // refresh the objects
             this.removeAllChildren();
             this.addChild(this._rollButton);
@@ -67,6 +92,7 @@ var scenes;
             this.addChild(this._dice2Txt);
             this.addChild(this._dice3Txt);
             this.addChild(this._dice4Txt);
+            this.addChild(this._result);
             this._diceArray.forEach(function (dice) {
                 that.addChild(dice);
             });
@@ -98,10 +124,11 @@ var scenes;
             this._diceArray.push(new objects.Dice(this._dices[0], 350, 170));
             this._diceArray.push(new objects.Dice(this._dices[0], 450, 170));
             // Labels
-            this._dice1Txt = new objects.Label("1", "40px", "Arial", "black", 150, 310, true);
-            this._dice2Txt = new objects.Label("1", "40px", "Arial", "black", 250, 310, true);
-            this._dice3Txt = new objects.Label("1", "40px", "Arial", "black", 350, 310, true);
-            this._dice4Txt = new objects.Label("1", "40px", "Arial", "black", 450, 310, true);
+            this._dice1Txt = new objects.Label("1", "30px", "Arial", "black", 150, 250, true);
+            this._dice2Txt = new objects.Label("1", "30px", "Arial", "black", 250, 250, true);
+            this._dice3Txt = new objects.Label("1", "30px", "Arial", "black", 350, 250, true);
+            this._dice4Txt = new objects.Label("1", "30px", "Arial", "black", 450, 250, true);
+            this._result = new objects.Label("Result = 3", "30px", "Arial", "black", 320, 320, true);
             this.Main();
         };
         PlayPlus.prototype.Update = function () {
@@ -121,6 +148,7 @@ var scenes;
             this.addChild(this._dice2Txt);
             this.addChild(this._dice3Txt);
             this.addChild(this._dice4Txt);
+            this.addChild(this._result);
             this.addChild(this._rollButton);
             this.addChild(this._backButton);
             this.addChild(this._finishButton);
