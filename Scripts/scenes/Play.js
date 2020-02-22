@@ -34,11 +34,41 @@ var scenes;
         Play.prototype._generateRandomNumber = function () {
             return Math.floor(Math.random() * 6);
         };
+        /**
+         * This method will assign new values to dices and add them to the scene
+         *
+         * @protected
+         * @memberof Play
+         */
+        Play.prototype._rollClick = function () {
+            // assign random numbers
+            var rand01 = this._generateRandomNumber();
+            var rand02 = this._generateRandomNumber();
+            // create new dice objects with new images
+            this._dice1 = new objects.Dice(this._dices[rand01], 150, 170);
+            this._dice2 = new objects.Dice(this._dices[rand02], 480, 170);
+            // change the value for the labels based on new random number
+            this._dice1Txt.text = (rand01 + 1).toFixed().toString();
+            this._dice2Txt.text = (rand02 + 1).toFixed().toString();
+            // refresh the objects
+            this.removeAllChildren();
+            this.addChild(this._rollButton);
+            this.addChild(this._dice1Txt);
+            this.addChild(this._dice2Txt);
+            this.addChild(this._dice1);
+            this.addChild(this._dice2);
+        };
         // PUBLIC METHODS
         //initialize and instatiate
+        /**
+         * This method will initialize the scene and place objects
+         *
+         * @memberof Play
+         */
         Play.prototype.Start = function () {
             // Buttons
             this._rollButton = new objects.Button(config.Game.ASSETS.getResult("rollButton"), 320, 430, true);
+            // Array of dice faces to easily assign by setting index
             this._dices = new Array();
             this._dices.push(config.Game.ASSETS.getResult('dice01'));
             this._dices.push(config.Game.ASSETS.getResult('dice02'));
@@ -56,26 +86,22 @@ var scenes;
         };
         Play.prototype.Update = function () {
         };
+        /**
+         * This method will handle the click event and add children
+         *
+         * @memberof Play
+         */
         Play.prototype.Main = function () {
             var that = this;
+            // Adding Children
             this.addChild(this._dice1);
             this.addChild(this._dice2);
             this.addChild(this._dice1Txt);
             this.addChild(this._dice2Txt);
             this.addChild(this._rollButton);
+            // Roll Button Click Event
             this._rollButton.on("click", function () {
-                var rand01 = that._generateRandomNumber();
-                var rand02 = that._generateRandomNumber();
-                that._dice1 = new objects.Dice(that._dices[rand01], 150, 170);
-                that._dice2 = new objects.Dice(that._dices[rand02], 480, 170);
-                that._dice1Txt.text = (rand01 + 1).toFixed().toString();
-                that._dice2Txt.text = (rand02 + 1).toFixed().toString();
-                that.removeAllChildren();
-                that.addChild(that._rollButton);
-                that.addChild(that._dice1Txt);
-                that.addChild(that._dice2Txt);
-                that.addChild(that._dice1);
-                that.addChild(that._dice2);
+                that._rollClick();
             });
         };
         return Play;
